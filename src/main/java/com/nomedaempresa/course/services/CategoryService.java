@@ -25,4 +25,9 @@ public class CategoryService implements BaseService<Category> {
     public Category findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
+
+    @Override
+    public Category save(Category obj) {
+        return this.repository.save(obj);
+    }
 }

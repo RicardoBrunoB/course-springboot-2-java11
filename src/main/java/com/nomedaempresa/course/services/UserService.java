@@ -30,8 +30,9 @@ public class UserService implements BaseService<User> {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public User insert(User obj) {
-        return repository.save(obj);
+    @Override
+    public User save(User obj) {
+        return this.repository.save(obj);
     }
 
     public void delete(Long id) {

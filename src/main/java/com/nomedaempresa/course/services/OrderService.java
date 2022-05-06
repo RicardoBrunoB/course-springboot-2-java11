@@ -25,4 +25,9 @@ public class OrderService implements BaseService<Order> {
     public Order findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
+
+    @Override
+    public Order save(Order obj) {
+        return this.repository.save(obj);
+    }
 }

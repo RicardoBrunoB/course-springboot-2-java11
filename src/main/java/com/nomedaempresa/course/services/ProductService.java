@@ -25,4 +25,9 @@ public class ProductService implements BaseService<Product> {
     public Product findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
+
+    @Override
+    public Product save(Product obj) {
+        return this.repository.save(obj);
+    }
 }
