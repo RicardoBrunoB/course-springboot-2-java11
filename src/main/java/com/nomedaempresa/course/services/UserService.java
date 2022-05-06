@@ -47,7 +47,7 @@ public class UserService implements BaseService<User> {
 
     public User update(Long id, User obj) {
         try {
-            User entity = repository.getOne(id);
+            User entity = repository.getById(id);
             updateData(entity, obj);
             return repository.save(entity);
         } catch (EntityNotFoundException e) {
