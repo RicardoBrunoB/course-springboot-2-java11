@@ -1,26 +1,33 @@
 package com.nomedaempresa.course.services;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.nomedaempresa.course.entities.Order;
+import com.nomedaempresa.course.repositories.OrderRepository;
+import com.nomedaempresa.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nomedaempresa.course.entities.Order;
-import com.nomedaempresa.course.repositories.OrderRepository;
+import java.util.List;
 
 @Service
-public class OrderService {
-	
-	@Autowired
-	private OrderRepository repository;
-	
-	public List<Order> findAll() {
-		return repository.findAll();
-	}
-	
-	public Order findById(Long id) {
-		Optional<Order> obj = repository.findById(id);
-		return obj.get();
-	}
+public class OrderService implements BaseService<Order> {
+
+    private final OrderRepository repository;
+
+    @Autowired
+    public OrderService(OrderRepository repository) {
+        this.repository = repository;
+    }
+
+    public List<Order> findAll() {
+        return repository.findAll();
+    }
+
+    public Order findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    @Override
+    public Order save(Order obj) {
+        return this.repository.save(obj);
+    }
 }

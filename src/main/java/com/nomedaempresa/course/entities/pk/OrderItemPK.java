@@ -8,8 +8,12 @@ import javax.persistence.ManyToOne;
 
 import com.nomedaempresa.course.entities.Order;
 import com.nomedaempresa.course.entities.Product;
+import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
+@Getter
+@Setter
 public class OrderItemPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,22 +24,6 @@ public class OrderItemPK implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 
 	@Override
 	public int hashCode() {
@@ -58,14 +46,10 @@ public class OrderItemPK implements Serializable {
 		if (order == null) {
 			if (other.order != null)
 				return false;
-		} else if (!order.equals(other.order))
-			return false;
+		} else return order.equals(other.order);
 		if (product == null) {
-			if (other.product != null)
-				return false;
-		} else if (!product.equals(other.product))
-			return false;
-		return true;
+			return other.product == null;
+		} else return product.equals(other.product);
 	}
 
 }
